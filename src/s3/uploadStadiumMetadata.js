@@ -1,6 +1,5 @@
 const { S3 } = require("@aws-sdk/client-s3");
 require("dotenv").config();
-const fs = require("fs");
 
 const bucketName = "oxstadiums";
 const region = "us-east-1";
