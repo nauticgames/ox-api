@@ -1,0 +1,13 @@
+{
+"itemId": 1,
+"name": "Chaos Stadium #1",
+"description": "OX Soccer Stadiums",
+"external_url": "https://marketplace.oxsoccer.com/",
+"image": "https://marketplace.oxsoccer.com/_next/image?url=%2Fassets%2Fimg%2Fchaos.png&w=1920&q=100",
+"attributes": [
+{
+"trait_type": "Stadium Type",
+"value": "Chaos"
+}
+]
+}

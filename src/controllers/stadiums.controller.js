@@ -1,14 +1,22 @@
 const { uploadFile } = require("../s3/uploadStadiumMetadata");
 const { stadiumNames } = require("../utils/stadiumTypes");
 const fs = require("fs");
+const path = require("path");
 
 exports.uploadMetadata = async function (req, res) {
   const { object } = req.body;
   const { secretkey } = req.headers;
 
+  console.log(object);
+
   if (typeof object === "undefined") {
     return res.status(400).json({ code: 400, message: "Invalid parameters" });
   }
+
+  if(typeof object.confirmed === 'undefined') {
+    return res.status(400);
+  }
+
 
   if (typeof secretkey === "undefined") {
     return res.status(401).json({ code: 401, message: "Missing secret key" });
@@ -39,7 +47,7 @@ exports.uploadMetadata = async function (req, res) {
     ],
   };
 
-  const filename = `${__dirname}/../../files/stadiums/${id}.json`;
+  const filename = `${path.resolve("./")}/files/stadiums/${id}.json`;
 
   fs.writeFileSync(filename, JSON.stringify(metadataInfo));
 
