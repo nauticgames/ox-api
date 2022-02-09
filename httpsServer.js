@@ -8,15 +8,14 @@ const port = process.env.port || 8000;
 
 // Certificate
 const key = fs.readFileSync(
-  "/etc/letsencrypt/live/api.oxsoccer.com/privkey.pem",
-  "utf8"
+  process.env.SSL_KEY, "utf8"
 );
 const cert = fs.readFileSync(
-  "/etc/letsencrypt/live/api.oxsoccer.com/cert.pem",
+  process.env.SSL_CERT,
   "utf8"
 );
 const ca = fs.readFileSync(
-  "/etc/letsencrypt/live/api.oxsoccer.com/chain.pem",
+  process.env.SSL_CA,
   "utf8"
 );
 
