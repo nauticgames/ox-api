@@ -1,7 +1,7 @@
 const { S3 } = require("@aws-sdk/client-s3");
 require("dotenv").config();
 
-const bucketName = "oxstadiums";
+const bucketName = process.env.AWS_BUCKET_NAME;
 const region = "us-east-1";
 const accessKeyId = process.env.AWS_ACCESS_KEY;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
