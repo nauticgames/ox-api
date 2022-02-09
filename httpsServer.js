@@ -35,3 +35,4 @@ app.use("/stadiums", require("./src/routes/stadiums.routes"));
 httpsServer.listen(port, () => {
   console.log(`HTTPS server on port ${port}`);
 });
+
