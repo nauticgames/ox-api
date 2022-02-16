@@ -8,7 +8,8 @@ const port = process.env.port || 8000;
 
 // Certificate
 const key = fs.readFileSync(
-  process.env.SSL_KEY, "utf8"
+  process.env.SSL_KEY,
+  "utf8"
 );
 const cert = fs.readFileSync(
   process.env.SSL_CERT,
