@@ -4,6 +4,7 @@ const https = require("https");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
+require("./functions/subscribeNewPurchases");
 const port = process.env.port || 8000;
 
 // Certificate
@@ -35,4 +36,3 @@ app.use("/stadiums", require("./src/routes/stadiums.routes"));
 httpsServer.listen(port, () => {
   console.log(`HTTPS server on port ${port}`);
 });
-
