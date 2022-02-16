@@ -1,31 +1,33 @@
-const { S3 } = require("@aws-sdk/client-s3");
+const buildMetadata = require("../../functions/buildMetadata");
 require("dotenv").config();
-
+const fs = require("fs");
+const path = require("path");
 const bucketName = process.env.AWS_BUCKET_NAME;
-const region = "us-east-1";
-const accessKeyId = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const s3 = require("../../config/s3");
 
-const s3 = new S3({
-  region,
-  credentials: {
-    accessKeyId,
-    secretAccessKey,
-  },
-});
+async function uploadMetadata(id, type) {
+  try {
+    const metadata = buildMetadata(id, type);
 
-async function uploadFile(id, file) {
-  const UploadParams = {
-    Bucket: bucketName,
-    Key: `${id}.json`,
-    Body: JSON.stringify(file),
-    ContentType: "application/json",
-    Metadata: {
-      "Content-Type": "application/json",
-    },
-  };
-  const data = await s3.putObject(UploadParams);
-  return data;
+    const filename = `${path.resolve("./")}/files/stadiums/${id}.json`;
+    fs.writeFileSync(filename, JSON.stringify(metadata));
+
+    const UploadParams = {
+      Bucket: bucketName,
+      Key: `${id}.json`,
+      Body: JSON.stringify(metadata),
+      ContentType: "application/json",
+      Metadata: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    await s3.putObject(UploadParams);
+
+    console.log("Metadata uploaded");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-exports.uploadFile = uploadFile;
+module.exports = { uploadMetadata };
