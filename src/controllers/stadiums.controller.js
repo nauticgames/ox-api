@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 exports.getMetadata = async function (req, res) {
   const id = req.params.id;
 
