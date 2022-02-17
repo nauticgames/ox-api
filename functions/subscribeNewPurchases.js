@@ -1,8 +1,5 @@
-require("dotenv").config();
-const Web3 = require("web3");
+const { web3 } = require("../config/wsProvider");
 const { uploadMetadata } = require("../src/s3/uploadStadiumMetadata");
-const WS_ENDPOINT = process.env.WS_ENDPOINT;
-const web3 = new Web3(Web3.givenProvider || WS_ENDPOINT);
 
 const NewPurchaseOptions = {
   address: "0xa320d1589334c0a12a3f971aafbbf21bf62c49ba",
@@ -26,9 +23,11 @@ const NewPurchaseABI = [
   },
 ];
 
-function subscribeNewPurchases() {
+const newPurchasesSubscribe = function () {
   web3.eth
-    .subscribe("logs", NewPurchaseOptions)
+    .subscribe("logs", NewPurchaseOptions, (err, result) => {
+      console.log(err, result);
+    })
     .on("data", async function (transactionHash) {
       const { stadiumId, stadiumType } = await web3.eth.abi.decodeParameters(
         NewPurchaseABI,
@@ -39,9 +38,16 @@ function subscribeNewPurchases() {
     })
     .on("connected", async function (connection) {
       console.log("Connected:", connection);
+    })
+    .on("close", (err) => {
+      console.error(
+        `WebSocket connection closed. Error code ${err.code}, reason "${err.reason}"`
+      );
+    })
+    .on("error", function (err) {
+      connect();
+      console.log(err);
     });
-}
+};
 
-subscribeNewPurchases();
-
-module.exports = subscribeNewPurchases;
+module.exports = { newPurchasesSubscribe };
