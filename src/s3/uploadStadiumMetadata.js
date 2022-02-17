@@ -25,8 +25,10 @@ async function uploadMetadata(id, type) {
     await s3.putObject(UploadParams);
 
     console.log("Metadata uploaded");
+    return;
   } catch (error) {
     console.log(error);
+    return;
   }
 }
 
