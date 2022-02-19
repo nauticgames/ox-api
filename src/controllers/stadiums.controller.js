@@ -1,4 +1,5 @@
 const fs = require("fs");
+require("dotenv").config();
 const path = require("path");
 const Web3 = require("web3");
 const HTTPS_ENDPOINT = process.env.HTTPS_ENDPOINT;
@@ -10,7 +11,7 @@ const { uploadMetadata } = require("../s3/uploadStadiumMetadata");
 
 const contract = new web3.eth.Contract(
   StadiumsABI,
-  "0xa320d1589334c0a12a3f971aafbbf21bf62c49ba"
+  process.env.STADIUM_CONTRACT
 );
 
 exports.getMetadata = async function (req, res) {
@@ -34,11 +35,10 @@ exports.reSyncMetadata = async function (req, res) {
 
   const unSyncedTokens = [];
 
-  for (let i = 1; i < totalSupply; i++) {
+  for (let i = 1; i <= totalSupply; i++) {
     try {
       const filename = `${__dirname}/../../files/stadiums/${i}.json`;
       fs.readFileSync(filename);
-      if (filename) continue;
     } catch {
       unSyncedTokens.push(i);
       continue;

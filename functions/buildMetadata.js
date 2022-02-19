@@ -10,7 +10,7 @@ module.exports = function (stadiumId, stadiumType) {
     name: `${stadiumName} Stadium #${id}`,
     description: "OX Soccer Stadiums",
     external_url: "https://marketplace.oxsoccer.com/",
-    image: `https://marketplace.oxsoccer.com/assets/img/${stadiumName.toLowerCase()}.png`,
+    image: `https://ox-images.s3.amazonaws.com/${stadiumName}.png`,
     attributes: [
       {
         trait_type: "Stadium Type",
