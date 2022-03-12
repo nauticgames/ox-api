@@ -1,4 +1,4 @@
-const options = {
+const WSOptions = {
   clientConfig: {
     keepalive: true,
     keepaliveInterval: 1000, // ms
@@ -11,4 +11,4 @@ const options = {
   },
 };
 
-module.exports = options;
+export default WSOptions;

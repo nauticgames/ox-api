@@ -1,4 +1,4 @@
-module.exports = NewPurchaseABI = [
+export const NewPurchaseABI = [
   {
     indexed: false,
     internalType: "uint256",
