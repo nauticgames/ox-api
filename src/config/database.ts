@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import server from "./server";
 
 const connectDB = async () => {
-  const uri = `mongodb+srv://admin:AAvfbMtvgDKJuNwo@cluster0.8csye.mongodb.net/ox-test?retryWrites=true&w=majority`;
+  const uri = server.db.uri;
 
   try {
     const {
