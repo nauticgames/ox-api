@@ -10,6 +10,7 @@ const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const STADIUM_CONTRACT = process.env.STADIUM_CONTRACT;
 const HTTPS_ENDPOINT = process.env.HTTPS_ENDPOINT;
 const WS_ENDPOINT = process.env.WS_ENDPOINT;
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
 
 export default {
   master: MASTER_KEY,
@@ -25,5 +26,8 @@ export default {
       https: HTTPS_ENDPOINT,
       ws: WS_ENDPOINT,
     },
+  },
+  db: {
+    uri: MONGODB_URI,
   },
 };
