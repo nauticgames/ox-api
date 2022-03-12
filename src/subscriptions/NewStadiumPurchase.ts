@@ -23,7 +23,7 @@ const subscribe = function () {
           transactionHash.data
         );
 
-      await UploadStadiumMetadata(stadiumId, stadiumType);
+      await UploadStadiumMetadata({ id: stadiumId, type: stadiumType });
     })
 
     .on("connected", async function (connection) {

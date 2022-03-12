@@ -1,8 +1,10 @@
-const BuildStadiumMetadata = (id, type) => {
+import { IStadium } from "../db/models/Stadium";
+
+const BuildStadiumMetadata = (id, type): IStadium => {
   const names = ["Moon", "Mars", "Chaos"];
 
-  id = parseInt(id);
-  type = parseInt(type);
+  id = Number(id);
+  type = Number(type);
 
   const name = names[type];
 

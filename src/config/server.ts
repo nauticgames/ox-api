@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 const MASTER_KEY = process.env.MASTER_KEY;
 const SERVER_PORT = process.env.SERVER_PORT || 8080;
 const AWS_STADIUMS_BUCKET_NAME =

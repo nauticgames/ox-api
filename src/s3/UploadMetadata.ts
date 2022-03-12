@@ -3,21 +3,29 @@ import dotenv from "dotenv";
 import path from "path";
 import s3 from "../config/s3";
 import writeFile from "../utils/writeFile";
+import server from "../config/server";
+import { NewStadium } from "../services/Stadiums";
+
 dotenv.config();
-const bucketName = process.env.AWS_BUCKET_NAME;
+
+interface IUploadStadiumMetadataParams {
+  id: string | number;
+  type: string | number;
+  bucket?: string;
+}
 
 const UploadStadiumMetadata = async (
-  id: string | number,
-  type: string | number
+  params: IUploadStadiumMetadataParams
 ): Promise<void> => {
+  const { id, type, bucket } = params;
+
   try {
     const metadata = BuildMetadata.BuildStadiumMetadata(id, type);
 
-    const filePath = `${path.resolve("./")}/files/stadiums/${id}.json`;
-    writeFile(filePath, metadata);
+    await NewStadium(metadata);
 
     const Object = {
-      Bucket: bucketName,
+      Bucket: bucket || server.aws.stadiumsBucket,
       Key: `${id}.json`,
       Body: JSON.stringify(metadata),
       ContentType: "application/json",
@@ -28,11 +36,9 @@ const UploadStadiumMetadata = async (
 
     await s3.putObject(Object);
 
-    console.log(`Metadata of stadium ${id} uploaded.`);
-
     return;
   } catch {
-    return;
+    throw new Error();
   }
 };
 
