@@ -14,7 +14,7 @@ describe("Re sync stadiums", () => {
   });
 
   test("Resync metadatas and get 200 code", async () => {
-    const response = await ReSyncStadiums({ contract, bucketName: "test" });
+    const response = await ReSyncStadiums({ bucketName: "test" });
 
     expect(response.code).toEqual(200);
   });
