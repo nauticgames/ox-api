@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import server from "../config/server";
 import ResponseHandler from "../utils/ResponseHandler";
 
 interface ICustomRequest extends Request {
@@ -14,7 +15,7 @@ const AuthenticatedRequest = (
 ) => {
   const { master_key } = req.headers;
 
-  if (!master_key || process.env.MASTER_KEY !== master_key) {
+  if (!master_key || server.master !== master_key) {
     return res.status(401).json(ResponseHandler.Unauthorized);
   } else {
     next();
