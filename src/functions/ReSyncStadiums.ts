@@ -26,9 +26,10 @@ const ReSyncStadiums = async (
 
   for (let i = 1; i <= totalSupply; i++) {
     try {
-      const stadium = await FindStadium(i);
+      const response = await FindStadium(i);
 
-      if (!stadium) unSyncedTokens.push(i);
+      if (response.code === 404) unSyncedTokens.push(i);
+      else continue;
     } catch {
       continue;
     }
